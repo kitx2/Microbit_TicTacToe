@@ -1,14 +1,14 @@
 Author: Young Kit
 
-#Micro:bit Tictactoe
+# Micro:bit Tictactoe
 
 A two-player TicTacToe using micro:bit as the primary micro-controller in conjunction with the Grove shield device and speaker module.
 
-##High-level schematic diagram
-![alt text](https://imgur.com/c3fuerJ)
+## High-level schematic diagram
+![alt text](https://i.imgur.com/c3fuerJ.png)
 
-##Technology stack
-![alt text](https://imgur.com/KYtGAEP)
+## Technology stack
+![alt text](https://i.imgur.com/KYtGAEP.png)
 
 
 ## Installation
