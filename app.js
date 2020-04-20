@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 //Enable CORS policy
 const cors = require("cors");
 app.use(cors());
+require("dotenv").config;
 
 //Import library for reading microbit
 var SerialPort = require("serialport");
@@ -18,7 +19,7 @@ const Readline = require("@serialport/parser-readline");
 
 // viewed at http://localhost:8080
 app.use(express.static(__dirname + "/"));
-app.get("/*", function(req, res) {
+app.get("/*", function (req, res) {
   res.sendFile(path.join(__dirname, "./index.html"));
 });
 
@@ -26,30 +27,30 @@ app.get("/*", function(req, res) {
 var Pusher = require("pusher");
 
 var pusher = new Pusher({
-  appId: "963357",
-  key: "bae3f167b2a04f27d7ac",
-  secret: "bcb925286431fe03fdd9",
-  cluster: "ap1",
-  encrypted: true
+  appId: process.env.PUSHER_APPID,
+  key: process.env.PUSHER_APIKEY,
+  secret: process.env.PUSHER_SECRET,
+  cluster: process.env.PUSHER_CLUSTER,
+  encrypted: true,
 });
 
 // WARNING: Need to adjust the COM port from PC
 var portMicrobit = new SerialPort("COM11", {
   baudRate: 115200,
-  parser: new Readline("\n")
+  parser: new Readline("\n"),
 });
 
 //Read microbit serialport data
 portMicrobit.open(() => {
   console.log("Port open");
 
-  portMicrobit.on("data", function(data) {
+  portMicrobit.on("data", function (data) {
     console.log("data received: " + data);
     pusher.trigger("my-channel", "my-event", {
-      message: data.toString()
+      message: data.toString(),
     });
 
-    pusher.get({ path: "/channels/my-channel/my-event", params: {} }, function(
+    pusher.get({ path: "/channels/my-channel/my-event", params: {} }, function (
       error,
       request,
       response

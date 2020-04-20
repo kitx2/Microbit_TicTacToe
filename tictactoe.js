@@ -3,12 +3,12 @@ let microMessage = "";
 let gameStart = false;
 var boardSize = 3;
 var coordinates = 0;
-
+require("dotenv").config();
 Pusher.logToConsole = true;
 
-var pusher = new Pusher("bae3f167b2a04f27d7ac", {
-  cluster: "ap1",
-  forceTLS: true
+var pusher = new Pusher(process.env.PUSHER_APIKEY, {
+  cluster: process.env.PUSHER_CLUSTER,
+  forceTLS: true,
 });
 
 //Send gameboard response to app.js(server)
@@ -16,17 +16,17 @@ function sendServer(text) {
   console.log(text);
   axios
     .post("/post", { clientMessage: text })
-    .then(response => {
+    .then((response) => {
       console.log(response);
     })
-    .catch(error => {
+    .catch((error) => {
       console.error(error);
     });
 }
 
 // Enable realtime messenging to server
 var channel = pusher.subscribe("my-channel");
-channel.bind("my-event", function(data) {
+channel.bind("my-event", function (data) {
   console.log(JSON.stringify(data));
 
   microMessage = JSON.parse(JSON.stringify(data)).message;
@@ -135,7 +135,7 @@ function initGame() {
     if (array[0] == "") {
       return false;
     } else {
-      return array.every(function(element) {
+      return array.every(function (element) {
         return element == first;
       });
     }
@@ -234,7 +234,7 @@ function initGame() {
   var boardClicks = 0;
 
   // If board is clicked, increment global click counter
-  board.addEventListener("click", function() {
+  board.addEventListener("click", function () {
     if (boardClicks >= Number(boardSize * boardSize - 1)) {
       // determineWinner will return true if it finds a winning combination
       turnIndicator.style.color = "grey";
@@ -275,7 +275,7 @@ function initGame() {
   var winningPlayer;
 
   // Add function to determine winner based on clicks array
-  var determineWinner = function() {
+  var determineWinner = function () {
     // Check for win by row
     for (i = 0; i < numSquares; i += 1) {
       // iterate over entire board
@@ -354,7 +354,7 @@ function initGame() {
   }; // End determineWinner function
 
   // Add function to count square clicks
-  var countClicks = function() {
+  var countClicks = function () {
     turnIndicatorWarning.style.visibility = "hidden";
     var divID = this.getAttribute("id");
     squareClicks[divID] += 1;
