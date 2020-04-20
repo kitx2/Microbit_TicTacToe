@@ -19,3 +19,14 @@ Use the package manager [npm](https://www.npmjs.com/get-npm) to install.
 npm install
 node app.js
 ```
+
+## Register Pusher API in .env file
+
+Use [pusher](https://pusher.com/) to register.
+
+```bash
+PUSHER_APIKEY=YOUR_PUSHER_API_KEY
+PUSHER_APPID=YOUR_PUSHER_API_ID
+PUSHER_SECRET=YOUR_PUSHER_SECRET_KEY
+PUSHER_CLUSTER=YOUR_PUSHER_API_CLUSTER
+````
