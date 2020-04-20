@@ -22,7 +22,7 @@ node app.js
 
 ## Register Pusher API in .env file
 
-Use [pusher](https://pusher.com/) to register.
+Sign up with [pusher](https://pusher.com/) to register a channel.
 
 ```bash
 PUSHER_APIKEY=YOUR_PUSHER_API_KEY
